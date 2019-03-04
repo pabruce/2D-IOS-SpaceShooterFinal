@@ -17,6 +17,28 @@
 		4975C50B206D165F00AA44BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4975C509206D165F00AA44BD /* LaunchScreen.storyboard */; };
 		4975C516206D165F00AA44BD /* SpaceShooterFinalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C515206D165F00AA44BD /* SpaceShooterFinalTests.swift */; };
 		4975C521206D165F00AA44BD /* SpaceShooterFinalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C520206D165F00AA44BD /* SpaceShooterFinalUITests.swift */; };
+		4975C546206D179F00AA44BD /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C530206D179E00AA44BD /* GameOverScene.swift */; };
+		4975C547206D179F00AA44BD /* Laser1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4975C531206D179E00AA44BD /* Laser1.caf */; };
+		4975C548206D179F00AA44BD /* BackgroundMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C532206D179E00AA44BD /* BackgroundMusic.swift */; };
+		4975C549206D179F00AA44BD /* ExplosionAtlas.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 4975C533206D179E00AA44BD /* ExplosionAtlas.atlasc */; };
+		4975C54A206D179F00AA44BD /* ExplosionAtlas.tps in Resources */ = {isa = PBXBuildFile; fileRef = 4975C534206D179E00AA44BD /* ExplosionAtlas.tps */; };
+		4975C54B206D179F00AA44BD /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C535206D179E00AA44BD /* Enemy.swift */; };
+		4975C54C206D179F00AA44BD /* ArturiaMood1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4975C536206D179E00AA44BD /* ArturiaMood1.mp3 */; };
+		4975C54D206D179F00AA44BD /* GameOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4975C537206D179E00AA44BD /* GameOverScene.sks */; };
+		4975C54E206D179F00AA44BD /* EnemyShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C538206D179E00AA44BD /* EnemyShot.swift */; };
+		4975C54F206D179F00AA44BD /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4975C539206D179E00AA44BD /* StartScene.sks */; };
+		4975C550206D179F00AA44BD /* HitAtlas.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = 4975C53A206D179E00AA44BD /* HitAtlas.atlasc */; };
+		4975C551206D179F00AA44BD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4975C53B206D179E00AA44BD /* Images.xcassets */; };
+		4975C552206D179F00AA44BD /* LaserShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C53C206D179E00AA44BD /* LaserShot.swift */; };
+		4975C553206D179F00AA44BD /* HitAtlas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C53D206D179F00AA44BD /* HitAtlas.swift */; };
+		4975C554206D179F00AA44BD /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C53E206D179F00AA44BD /* StartScene.swift */; };
+		4975C555206D179F00AA44BD /* ExplosionAtlas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C53F206D179F00AA44BD /* ExplosionAtlas.swift */; };
+		4975C556206D179F00AA44BD /* BackgroundGfx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C540206D179F00AA44BD /* BackgroundGfx.swift */; };
+		4975C557206D179F00AA44BD /* EnemySpawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C541206D179F00AA44BD /* EnemySpawner.swift */; };
+		4975C558206D179F00AA44BD /* SpaceShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C542206D179F00AA44BD /* SpaceShip.swift */; };
+		4975C559206D179F00AA44BD /* CollisionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C543206D179F00AA44BD /* CollisionDetector.swift */; };
+		4975C55A206D179F00AA44BD /* ExplosionPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4975C544206D179F00AA44BD /* ExplosionPlayer.swift */; };
+		4975C55B206D179F00AA44BD /* Expl1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4975C545206D179F00AA44BD /* Expl1.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +75,28 @@
 		4975C51C206D165F00AA44BD /* SpaceShooterFinalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceShooterFinalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4975C520206D165F00AA44BD /* SpaceShooterFinalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShooterFinalUITests.swift; sourceTree = "<group>"; };
 		4975C522206D165F00AA44BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4975C530206D179E00AA44BD /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		4975C531206D179E00AA44BD /* Laser1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Laser1.caf; sourceTree = "<group>"; };
+		4975C532206D179E00AA44BD /* BackgroundMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundMusic.swift; sourceTree = "<group>"; };
+		4975C533206D179E00AA44BD /* ExplosionAtlas.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExplosionAtlas.atlasc; sourceTree = "<group>"; };
+		4975C534206D179E00AA44BD /* ExplosionAtlas.tps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ExplosionAtlas.tps; sourceTree = "<group>"; };
+		4975C535206D179E00AA44BD /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		4975C536206D179E00AA44BD /* ArturiaMood1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ArturiaMood1.mp3; sourceTree = "<group>"; };
+		4975C537206D179E00AA44BD /* GameOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverScene.sks; sourceTree = "<group>"; };
+		4975C538206D179E00AA44BD /* EnemyShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShot.swift; sourceTree = "<group>"; };
+		4975C539206D179E00AA44BD /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
+		4975C53A206D179E00AA44BD /* HitAtlas.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HitAtlas.atlasc; sourceTree = "<group>"; };
+		4975C53B206D179E00AA44BD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4975C53C206D179E00AA44BD /* LaserShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaserShot.swift; sourceTree = "<group>"; };
+		4975C53D206D179F00AA44BD /* HitAtlas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitAtlas.swift; sourceTree = "<group>"; };
+		4975C53E206D179F00AA44BD /* StartScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
+		4975C53F206D179F00AA44BD /* ExplosionAtlas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplosionAtlas.swift; sourceTree = "<group>"; };
+		4975C540206D179F00AA44BD /* BackgroundGfx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundGfx.swift; sourceTree = "<group>"; };
+		4975C541206D179F00AA44BD /* EnemySpawner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemySpawner.swift; sourceTree = "<group>"; };
+		4975C542206D179F00AA44BD /* SpaceShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceShip.swift; sourceTree = "<group>"; };
+		4975C543206D179F00AA44BD /* CollisionDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionDetector.swift; sourceTree = "<group>"; };
+		4975C544206D179F00AA44BD /* ExplosionPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplosionPlayer.swift; sourceTree = "<group>"; };
+		4975C545206D179F00AA44BD /* Expl1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Expl1.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +156,28 @@
 				4975C507206D165F00AA44BD /* Assets.xcassets */,
 				4975C509206D165F00AA44BD /* LaunchScreen.storyboard */,
 				4975C50C206D165F00AA44BD /* Info.plist */,
+				4975C536206D179E00AA44BD /* ArturiaMood1.mp3 */,
+				4975C540206D179F00AA44BD /* BackgroundGfx.swift */,
+				4975C532206D179E00AA44BD /* BackgroundMusic.swift */,
+				4975C543206D179F00AA44BD /* CollisionDetector.swift */,
+				4975C535206D179E00AA44BD /* Enemy.swift */,
+				4975C538206D179E00AA44BD /* EnemyShot.swift */,
+				4975C541206D179F00AA44BD /* EnemySpawner.swift */,
+				4975C545206D179F00AA44BD /* Expl1.caf */,
+				4975C533206D179E00AA44BD /* ExplosionAtlas.atlasc */,
+				4975C53F206D179F00AA44BD /* ExplosionAtlas.swift */,
+				4975C534206D179E00AA44BD /* ExplosionAtlas.tps */,
+				4975C544206D179F00AA44BD /* ExplosionPlayer.swift */,
+				4975C537206D179E00AA44BD /* GameOverScene.sks */,
+				4975C530206D179E00AA44BD /* GameOverScene.swift */,
+				4975C53A206D179E00AA44BD /* HitAtlas.atlasc */,
+				4975C53D206D179F00AA44BD /* HitAtlas.swift */,
+				4975C53B206D179E00AA44BD /* Images.xcassets */,
+				4975C531206D179E00AA44BD /* Laser1.caf */,
+				4975C53C206D179E00AA44BD /* LaserShot.swift */,
+				4975C542206D179F00AA44BD /* SpaceShip.swift */,
+				4975C539206D179E00AA44BD /* StartScene.sks */,
+				4975C53E206D179F00AA44BD /* StartScene.swift */,
 			);
 			path = SpaceShooterFinal;
 			sourceTree = "<group>";
@@ -241,11 +307,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4975C54C206D179F00AA44BD /* ArturiaMood1.mp3 in Resources */,
 				4975C506206D165F00AA44BD /* Main.storyboard in Resources */,
 				4975C4FD206D165F00AA44BD /* GameScene.sks in Resources */,
+				4975C551206D179F00AA44BD /* Images.xcassets in Resources */,
+				4975C547206D179F00AA44BD /* Laser1.caf in Resources */,
+				4975C549206D179F00AA44BD /* ExplosionAtlas.atlasc in Resources */,
 				4975C508206D165F00AA44BD /* Assets.xcassets in Resources */,
+				4975C55B206D179F00AA44BD /* Expl1.caf in Resources */,
+				4975C54A206D179F00AA44BD /* ExplosionAtlas.tps in Resources */,
 				4975C50B206D165F00AA44BD /* LaunchScreen.storyboard in Resources */,
+				4975C54F206D179F00AA44BD /* StartScene.sks in Resources */,
+				4975C54D206D179F00AA44BD /* GameOverScene.sks in Resources */,
 				4975C4FF206D165F00AA44BD /* Actions.sks in Resources */,
+				4975C550206D179F00AA44BD /* HitAtlas.atlasc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,9 +345,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4975C559206D179F00AA44BD /* CollisionDetector.swift in Sources */,
 				4975C501206D165F00AA44BD /* GameScene.swift in Sources */,
 				4975C503206D165F00AA44BD /* GameViewController.swift in Sources */,
+				4975C558206D179F00AA44BD /* SpaceShip.swift in Sources */,
+				4975C54B206D179F00AA44BD /* Enemy.swift in Sources */,
+				4975C556206D179F00AA44BD /* BackgroundGfx.swift in Sources */,
+				4975C557206D179F00AA44BD /* EnemySpawner.swift in Sources */,
+				4975C554206D179F00AA44BD /* StartScene.swift in Sources */,
+				4975C546206D179F00AA44BD /* GameOverScene.swift in Sources */,
 				4975C4FB206D165F00AA44BD /* AppDelegate.swift in Sources */,
+				4975C54E206D179F00AA44BD /* EnemyShot.swift in Sources */,
+				4975C548206D179F00AA44BD /* BackgroundMusic.swift in Sources */,
+				4975C553206D179F00AA44BD /* HitAtlas.swift in Sources */,
+				4975C552206D179F00AA44BD /* LaserShot.swift in Sources */,
+				4975C55A206D179F00AA44BD /* ExplosionPlayer.swift in Sources */,
+				4975C555206D179F00AA44BD /* ExplosionAtlas.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +527,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WKGU74Y9E7;
 				INFOPLIST_FILE = SpaceShooterFinal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bradley.edu.SpaceShooterFinal;
@@ -453,6 +542,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WKGU74Y9E7;
 				INFOPLIST_FILE = SpaceShooterFinal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bradley.edu.SpaceShooterFinal;

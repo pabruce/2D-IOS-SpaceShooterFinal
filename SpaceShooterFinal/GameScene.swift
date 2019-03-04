@@ -1,110 +1,246 @@
 //
 //  GameScene.swift
-//  SpaceShooterFinal
+//  Space Shooter
 //
-//  Created by pbruce on 3/29/18.
+//  Created by pbruce on 2/26/18.
 //  Copyright © 2018 pbruce. All rights reserved.
 //
 
 import SpriteKit
-import GameplayKit
+import CoreMotion
+import AudioToolbox
+
+typealias EnemyHitHandler = ( (SKNode,SKNode) -> Void)
+typealias PlayerHitHandler = ((SKNode,SKNode,CGPoint) -> Void)
+
+let laserShotBitMask:UInt32 = 0x01
+let enemyBitMask:UInt32 = 0x02
+let playerBitMask:UInt32 = 0x04
+let enemyShotBitMask:UInt32 = 0x08
 
 class GameScene: SKScene {
     
-    var entities = [GKEntity]()
-    var graphs = [String : GKGraph]()
-    
-    private var lastUpdateTime : TimeInterval = 0
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
-    
-    override func sceneDidLoad() {
+    let spaceShip:SpaceShip = SpaceShip(initialYPos: 100.0)
+    let motionManager: CMMotionManager = CMMotionManager()
+    var enemySpawner:EnemySpawner?
+    var collisionDetector : CollisionDetector?
+    var bgHeight:CGFloat = 0.0
+    let bgMusic = BackGroundMusic()
+    var bgGfx:BackgroundGfx?
+    let explosionPlayer = ExplosionPlayer()
 
-        self.lastUpdateTime = 0
+    override func didMove(to view: SKView) {
+
+        bgGfx = BackgroundGfx(parent:self)
+        bgGfx?.setupBackgroup()
+
+        self.anchorPoint = CGPoint(x: 0, y: 0)
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        setupPhysicsWorld()
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        setupScorebar()
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+        spaceShip.addShipToParent(self,pos: CGPoint( x: self.frame.midX, y: spaceShip.initialYPos))
+        
+        enemySpawner = EnemySpawner(parent: self)
+        
+        updateScoreLabel()
+        
+        updateEnergyMeter()
+        
+        bgMusic.playSound()
+
+        motionManager.startAccelerometerUpdates()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+        /* Called when a touch begins */
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        spaceShip.firePressed = true
+            
     }
     
     
+    var waitCounter = 0
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        /* Called before each frame is rendered */
         
-        // Initialize _lastUpdateTime if it has not already been
-        if (self.lastUpdateTime == 0) {
-            self.lastUpdateTime = currentTime
+        processUserMotionForUpdate(currentTime)
+        
+        spaceShip.updateActions()
+        
+        spawnNewEnemy()
+        
+        if (waitCounter > 100)
+        {
+            enemySpawner?.removeEnemiesOutsideScreen()
+            waitCounter = 0
         }
+        waitCounter += 1
         
-        // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
+        bgGfx?.scrollBackground()
         
-        // Update entities
-        for entity in self.entities {
-            entity.update(deltaTime: dt)
-        }
-        
-        self.lastUpdateTime = currentTime
     }
+
+    
+    func setupPhysicsWorld()
+    {
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        self.name = "edge"
+        collisionDetector = CollisionDetector(g:enemyHit, e:playerHit)
+        self.physicsWorld.contactDelegate = collisionDetector
+    }
+    
+    let explosion = ExplosionAtlas()
+    
+    func enemyHit(_ enemyNode:SKNode,laserNode:SKNode) {
+        laserNode.removeFromParent()
+        enemyNode.physicsBody?.isDynamic = false
+        enemyNode.physicsBody?.categoryBitMask = 0
+        enemyNode.name = ""
+        score += 1
+        updateScoreLabel()
+        
+        explosionPlayer.playSound()
+        
+        let expl = SKAction.animate(with: explosion.expl_01_(), timePerFrame: 0.05)
+        let enemySprite = enemyNode as! SKSpriteNode
+        enemySprite.run(expl, completion: { () -> Void in
+            enemyNode.removeFromParent()
+            
+        })
+    }
+    
+    let hitAtlas = HitAtlas()
+    
+    func playerHit(_ player:SKNode,hitObject:SKNode,contactPoint:CGPoint) {
+        hitObject.name = ""
+        energy -= 1
+        updateEnergyMeter()
+        hitObject.removeFromParent()
+        
+        // Vibrate device
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        
+        // Animate a hit on the player ship
+        let pointInSprite = player.convert(contactPoint, from: self)
+        let hit = SKSpriteNode(texture: hitAtlas.laserBlue08())
+        hit.position = pointInSprite
+        hit.zPosition = 10
+        player.addChild(hit)
+        let expl = SKAction.animate(with: hitAtlas.laserBlue(), timePerFrame: 0.05)
+        hit.run(expl, completion: { () -> Void in
+            hit.removeFromParent()
+        })
+        
+        if (energy < 1) {
+            endGame()
+        }
+
+
+    }
+    
+    func endGame() {
+        let transition = SKTransition.reveal(with: SKTransitionDirection.down, duration: 3.0)
+        
+        let scene = GameOverScene(size: self.scene!.size)
+        scene.score = score
+        scene.scaleMode = SKSceneScaleMode.aspectFit
+        scene.backgroundColor = UIColor.black
+        
+        self.scene?.view?.presentScene(scene, transition: transition)
+        bgMusic.StopSound()
+    }
+
+    
+    var timeBetweenSpawns=200
+    var count = 0
+    func spawnNewEnemy() {
+        if (count > timeBetweenSpawns)
+        {
+            enemySpawner?.spawnNewEnemy(spaceShip.GetCurrentPosition())
+            count=0
+            if (timeBetweenSpawns > 20) {
+                timeBetweenSpawns -= 10
+            }
+            
+        }
+        count += 1
+    }
+    
+    func processUserMotionForUpdate(_ currentTime: CFTimeInterval) {
+        if let data = motionManager.accelerometerData {
+            
+            if (data.acceleration.x > 0.2) {
+                spaceShip.horizontalAction = .moveRight
+                spaceShip.horizontalSpeed = fabs(data.acceleration.x)
+                
+            }
+            else if (data.acceleration.x < -0.2) {
+                spaceShip.horizontalAction = .moveLeft
+                spaceShip.horizontalSpeed = fabs(data.acceleration.x)
+                
+            }
+            else {
+                spaceShip.horizontalAction = .none
+                spaceShip.horizontalSpeed = 0.0
+            }
+            
+            if (data.acceleration.y > 0.2) {
+                spaceShip.verticalAction = .moveUp
+                spaceShip.verticalSpeed = fabs(data.acceleration.y)
+                
+            }
+            else if (data.acceleration.y < -0.2) {
+                spaceShip.verticalAction = .moveDown
+                spaceShip.verticalSpeed = fabs(data.acceleration.y)
+                
+            }
+            else {
+                spaceShip.verticalAction = .none
+                spaceShip.verticalSpeed = 0.0
+            }
+
+        }
+    }
+    
+    var score = 0
+    let scoreLabel = SKLabelNode(fontNamed:"Chalkduster")
+    
+    let playerYPos = 100.0
+    
+    func updateScoreLabel() {
+        scoreLabel.text = "Score: \(score)"
+    }
+    
+    var energy = 5
+    let energyLabel = SKLabelNode(fontNamed:"Lucida Grande")
+    let energyMeter = SKLabelNode(fontNamed:"Lucida Grande")
+    
+    func updateEnergyMeter() {
+        var energyBar = ""
+        if (energy > 0)
+        {
+            for _ in 0...energy-1 {
+                energyBar += "❤️"
+            }
+        }
+        energyMeter.text = energyBar
+    }
+
+    func setupScorebar()
+    {
+        scoreLabel.fontSize = 25;
+        scoreLabel.position = CGPoint(x: 100,y: 0)
+        self.addChild(scoreLabel)
+        energyLabel.fontSize = 25;
+        energyLabel.position = CGPoint(x: self.frame.width-200,y: 0)
+        self.addChild(energyLabel)
+        energyMeter.fontSize = 25;
+        energyMeter.position = CGPoint(x: self.frame.width-250,y: 0)
+        self.addChild(energyMeter)
+    }
+
+
+
 }

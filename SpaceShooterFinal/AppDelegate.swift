@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  SpaceShooterFinal
+//  Space Shooter
 //
-//  Created by pbruce on 3/29/18.
+//  Created by pbruce on 2/26/18.
 //  Copyright © 2018 pbruce. All rights reserved.
 //
 

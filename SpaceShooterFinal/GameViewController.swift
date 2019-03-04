@@ -1,56 +1,62 @@
 //
 //  GameViewController.swift
-//  SpaceShooterFinal
+//  Space Shooter
 //
-//  Created by pbruce on 3/29/18.
+//  Created by pbruce on 2/26/18.
 //  Copyright © 2018 pbruce. All rights reserved.
 //
 
 import UIKit
 import SpriteKit
-import GameplayKit
+
+extension SKNode {
+    class func unarchiveFromFile(_ file : String) -> SKNode? {
+        if let path = Bundle.main.path(forResource: file, ofType: "sks") {
+            let sceneData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            let archiver = NSKeyedUnarchiver(forReadingWith: sceneData)
+            
+            archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
+//            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! GameScene
+            let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! StartScene
+            archiver.finishDecoding()
+            return scene
+        } else {
+            return nil
+        }
+    }
+}
 
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
-        // including entities and graphs.
-        if let scene = GKScene(fileNamed: "GameScene") {
+
+        if let scene = StartScene.unarchiveFromFile("StartScene") as? StartScene {
+            // Configure the view.
+            scene.size = CGSize(width: 640,height: 1136)
+            let skView = self.view as! SKView
+            skView.showsFPS = false
+            skView.showsNodeCount = false
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
             
-            // Get the SKScene from the loaded GKScene
-            if let sceneNode = scene.rootNode as! GameScene? {
-                
-                // Copy gameplay related content over to the scene
-                sceneNode.entities = scene.entities
-                sceneNode.graphs = scene.graphs
-                
-                // Set the scale mode to scale to fit the window
-                sceneNode.scaleMode = .aspectFill
-                
-                // Present the scene
-                if let view = self.view as! SKView? {
-                    view.presentScene(sceneNode)
-                    
-                    view.ignoresSiblingOrder = true
-                    
-                    view.showsFPS = true
-                    view.showsNodeCount = true
-                }
-            }
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = SKSceneScaleMode.fill// AspectFill// .AspectFit //.AspectFill
+            scene.backgroundColor = UIColor.black
+            
+            skView.presentScene(scene)
         }
     }
 
-    override var shouldAutorotate: Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
+            return UIInterfaceOrientationMask.allButUpsideDown
         } else {
-            return .all
+            return UIInterfaceOrientationMask.all
         }
     }
 
@@ -59,7 +65,7 @@ class GameViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override var prefersStatusBarHidden: Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }
